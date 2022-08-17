@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import HomePage from './pages/HomePage'
 import NowPlayingPage from './pages/NowPlayingPage'
@@ -6,6 +7,8 @@ import PopularPage from './pages/PopularPage'
 import TopRatedPage from './pages/TopRatedPage'
 
 import Navigation from './components/Navigation'
+
+import './assets/scss/App.scss'
 
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
 				<Route path={'/top-rated'} element={<TopRatedPage />} />
 
 			</Routes>
+
+			<ReactQueryDevtools />
+
 
 		</div>
 	)

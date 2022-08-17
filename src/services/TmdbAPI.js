@@ -15,20 +15,22 @@ export const get = async (endpoint) => {
 
 
 
-export const getNowPlayingMovies = (id) => {
-    return get(`/movie/now_playing${APIkey}${adultCont}`)
+export const getNowPlayingMovies = ({ queryKey }) => {
+    const [key, page] = queryKey
+
+    return get(`/movie/now_playing${APIkey}${adultCont}&page=${page}`)
 }
 
-export const getPopularMovies = (id) => {
-    return get(`/movie/popular${APIkey}${adultCont}`)
+export const getPopularMovies = ({ queryKey }) => {
+    return get(`/movie/popular${APIkey}${adultCont}&page=${page}`)
 }
 
-export const getTopRatedMovies = (id) => {
-    return get(`/movie/top_rated${APIkey}${adultCont}`)
+export const getTopRatedMovies = ({ queryKey }) => {
+    return get(`/movie/top_rated${APIkey}${adultCont}&page=${page}`)
 }
 
 export const getMovie = (id) => {
-    return get(`/movie/${id}${APIkey}${adultCont}`)
+    return get(`/movie/${id}${APIkey}`)
 }
 
 export default {

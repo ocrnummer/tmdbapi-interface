@@ -1,18 +1,20 @@
-import { Router, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import HomePage from './pages/HomePage'
 
 function App() {
 
-  return (
-    <div className="App">
+	return (
+		<div className="App">
 
-      <Router>
-        <Route path={'/'} element={<HomePage />} />
-      </Router>
+			<Routes>
 
-    </div>
-  )
+				<Route path={'/'} element={<HomePage />} />
+
+			</Routes>
+
+		</div>
+	)
 }
 
 export default App

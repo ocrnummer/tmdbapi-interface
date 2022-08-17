@@ -29,6 +29,8 @@ export const getTopRatedMovies = ({ queryKey }) => {
     return get(`/movie/top_rated${APIkey}${adultCont}&page=${page}`)
 }
 
+
+
 export const getMovie = (id) => {
     return get(`/movie/${id}${APIkey}`)
 }

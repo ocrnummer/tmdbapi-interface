@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import NowPlayingPage from './pages/NowPlayingPage'
 import PopularPage from './pages/PopularPage'
 import TopRatedPage from './pages/TopRatedPage'
+import SearchPage from './pages/SearchPage'
 
 import Navigation from './components/Navigation'
 
@@ -24,6 +25,7 @@ function App() {
 				<Route path={'/now-playing'} element={<NowPlayingPage />} />
 				<Route path={'/popular'} element={<PopularPage />} />
 				<Route path={'/top-rated'} element={<TopRatedPage />} />
+				<Route path={'/search'} element={<SearchPage />} />
 
 			</Routes>
 

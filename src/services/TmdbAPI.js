@@ -1,44 +1,59 @@
 import axios from 'axios'
 
-// const APIkey = import.meta.env.TMDB_API_KEY
-const APIkey = '?api_key=9de1c9f1c264d126506898f0cfc0bb5c'
-const adultCont = '&include_adult=false'
+const APIkey = `?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+const sorting = 'popularity.desc'
+const genre = 'popularity.desc'
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3'
 
 
 
 export const get = async (endpoint) => {
-    const response = await axios.get(endpoint)
-    return response.data
+	const response = await axios.get(endpoint)
+
+	return response.data
 }
 
 
 
-export const getNowPlayingMovies = ({ queryKey }) => {
-    const [key, page] = queryKey
+export const discoverMovies = ({ queryKey }) => {
+	const [key, page] = queryKey
 
-    return get(`/movie/now_playing${APIkey}${adultCont}&page=${page}`)
+	return get(`/discover/movie${APIkey}
+		&sort_by=${sorting}
+		&include_adult=false
+		&include_video=false
+		&page=${page}
+		&with_genres=${genre}`)
 }
 
-export const getPopularMovies = ({ queryKey }) => {
-    return get(`/movie/popular${APIkey}${adultCont}&page=${page}`)
+export const nowPlayingMovies = ({ queryKey }) => {
+	const [key, page] = queryKey
+	return get(`/movie/now_playing${APIkey}&page=${page}`)
 }
 
-export const getTopRatedMovies = ({ queryKey }) => {
-    return get(`/movie/top_rated${APIkey}${adultCont}&page=${page}`)
+export const popularMovies = ({ queryKey }) => {
+	const [key, page] = queryKey
+	return get(`/movie/popular${APIkey}&page=${page}`)
 }
+
+export const topRatedMovies = ({ queryKey }) => {
+	const [key, page] = queryKey
+	return get(`/movie/top_rated${APIkey}&page=${page}`)
+}
+
 
 
 
 export const getMovie = (id) => {
-    return get(`/movie/${id}${APIkey}`)
+	return get(`/movie/${id}${APIkey}`)
 }
 
 export default {
-    get,
-    getNowPlayingMovies,
-    getPopularMovies,
-    getTopRatedMovies,
-    getMovie
+	get,
+	discoverMovies,
+	nowPlayingMovies,
+	popularMovies,
+	topRatedMovies,
+	getMovie
 }

@@ -2,11 +2,9 @@ import axios from 'axios'
 
 const APIkey = `?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
 const sorting = 'popularity.desc'
-const genre = 'popularity.desc'
+const genre = 'action'
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3'
-
-
 
 export const get = async (endpoint) => {
 	const response = await axios.get(endpoint)
@@ -17,7 +15,7 @@ export const get = async (endpoint) => {
 
 
 export const discoverMovies = ({ queryKey }) => {
-	const [key, page] = queryKey
+	const [_key, page] = queryKey
 
 	return get(`/discover/movie${APIkey}
 		&sort_by=${sorting}
@@ -27,19 +25,13 @@ export const discoverMovies = ({ queryKey }) => {
 		&with_genres=${genre}`)
 }
 
-export const nowPlayingMovies = ({ queryKey }) => {
-	const [key, page] = queryKey
-	return get(`/movie/now_playing${APIkey}&page=${page}`)
-}
 
-export const popularMovies = ({ queryKey }) => {
-	const [key, page] = queryKey
-	return get(`/movie/popular${APIkey}&page=${page}`)
-}
 
-export const topRatedMovies = ({ queryKey }) => {
-	const [key, page] = queryKey
-	return get(`/movie/top_rated${APIkey}&page=${page}`)
+
+export const getMoviesCategory = ({ queryKey }) => {
+	const [_key, page, category] = queryKey
+	return get(`/movie${category}${APIkey}&page=${page}`)
+
 }
 
 
@@ -51,9 +43,7 @@ export const getMovie = (id) => {
 
 export default {
 	get,
+	getMoviesCategory,
 	discoverMovies,
-	nowPlayingMovies,
-	popularMovies,
-	topRatedMovies,
 	getMovie
 }

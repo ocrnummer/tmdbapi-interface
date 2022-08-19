@@ -1,19 +1,27 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
-const Pagination = ({ page, previousPage, nextPage }) => {
+const Pagination = ({ page, turnPage }) => {
     return (
         <div className="d-flex justify-content-between align-item-center m-2">
             <Button
                 disabled={page <= 1 ? true : false}
-                onClick={previousPage}
+                onClick={() => {
+                    turnPage({
+                        page: Number(page) - 1
+                    })
+                }}
                 variant="primary"
             >Föregående sida</Button>
 
             <span> {page} / many </span>
 
             <Button
-                onClick={nextPage}
+                onClick={() => {
+                    turnPage({
+                        page: Number(page) + 1
+                    })
+                }}
                 variant="primary"
             >Nästa sida</Button>
         </div>

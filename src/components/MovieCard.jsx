@@ -2,6 +2,7 @@ import { Card } from 'react-bootstrap'
 
 const MovieCard = ({ data }) => {
 	const BASE_URL = 'https://image.tmdb.org/t/p/w300'
+
 	return (
 		<Card>
 			<Card.Img variant="top" src={BASE_URL + data.poster_path} />

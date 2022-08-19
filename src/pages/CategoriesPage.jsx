@@ -15,11 +15,10 @@ import CategoryButton from '../components/CategoryButton'
 
 const NowPlayingPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams({
-		category: '/now_playing',
+		category: '/popular',
 		page: 1
 	})
 
-	// const query = searchParams.get('query')
 	const category = searchParams.get('category')
 	const page = searchParams.get('page')
 
@@ -30,6 +29,7 @@ const NowPlayingPage = () => {
 		<div>
 			<h2>Nu på bio</h2>
 
+			{/* Kategoriknappar */}
 			<Button
 				onClick={() => { setSearchParams({ category: "/popular", page: 1 }) }}
 				variant="outline-primary"
@@ -43,9 +43,9 @@ const NowPlayingPage = () => {
 				variant="outline-primary"
 			>ToppListan</Button>
 
-			{/* <CategoryButton category="/popular" text="Trendande titlar" />
-			<CategoryButton category="/now_playing" text="Nu på bio" />
-			<CategoryButton category="/top_rated" text="Topplistan" /> */}
+			{/* <CategoryButton category="/popular" text="Trendande titlar" onSetSearchParams={setSearchParams} />
+			<CategoryButton category="/now_playing" text="Nu på bio" onSetSearchParams={setSearchParams} />
+			<CategoryButton category="/top_rated" text="Topplistan" onSetSearchParams={setSearchParams} /> */}
 
 
 			{data && (

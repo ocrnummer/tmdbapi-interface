@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import HomePage from './pages/HomePage'
 import CategoriesPage from './pages/CategoriesPage'
 import SearchPage from './pages/SearchPage'
+import MoviePage from './pages/MoviePage'
 
 import Navigation from './components/Navigation'
 
@@ -22,6 +23,7 @@ function App() {
 				<Route path={'/'} element={<HomePage />} />
 				<Route path={'/categories'} element={<CategoriesPage />} />
 				<Route path={'/search'} element={<SearchPage />} />
+				<Route path={'/movie/:id'} element={<MoviePage />} />
 
 			</Routes>
 

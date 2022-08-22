@@ -25,16 +25,29 @@ export const discoverMovies = ({ queryKey }) => {
 
 // &query=${query}
 
+
 export const getMoviesCategory = ({ queryKey }) => {
 	const [_key, page, category] = queryKey
 
 	return get(`/movie${category}${APIkey}&page=${page}`)
-
 }
 
-export const getMovie = (id) => {
-	return get(`/movie/${id}${APIkey}`)
+
+export const getMovie = ({ queryKey }) => {
+	const [_key, id] = queryKey
+
+	return get(`/movie/${id}${APIkey}&append_to_response=credits`)
 }
+
+
+export const getActor = ({ queryKey }) => {
+	const [_key, id] = queryKey
+
+	return get(`/person/${id}${APIkey}`
+		// &append_to_response=credits
+	)
+}
+
 
 
 
@@ -42,5 +55,6 @@ export default {
 	get,
 	getMoviesCategory,
 	discoverMovies,
-	getMovie
+	getMovie,
+	getActor
 }

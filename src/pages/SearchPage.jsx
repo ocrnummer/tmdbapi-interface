@@ -1,7 +1,7 @@
 // React & Bootstrap
-import { useState, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useQuery } from 'react-query'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { Container, Form, Row, Col, Dropdown, Button } from 'react-bootstrap'
 
 // Components
@@ -29,7 +29,6 @@ const SearchPage = () => {
 	const { data, error, isLoading, isFetching, isError } = useQuery(['discover-movies', page, genre, sort, query], discoverMovies)
 
 	const handleCheckbox = (e) => {
-		console.log(e.target.id)
 		setSearchParams({
 			page,
 			genre: e.target.id,
@@ -38,7 +37,6 @@ const SearchPage = () => {
 	}
 
 	const handleClickSorting = (e) => {
-		console.log(e.target.value)
 		setSearchParams({
 			page,
 			genre,
@@ -48,6 +46,7 @@ const SearchPage = () => {
 
 	return (
 		<Container className="d-flex flex-column align-items-center">
+
 
 			{/* form med input för text och knappar/dropdown för genre */}
 			{/* <Form onSubmit={handleSubmit}>
@@ -62,13 +61,7 @@ const SearchPage = () => {
 				</Form.Group>
 			</Form> */}
 
-
-
-
-
-			{/* --------->     SORTERING HALLÅ!!! <-------------- */}
-
-
+			{/* Sortering */}
 			<Dropdown className="d-inline mx-2">
 				<Dropdown.Toggle id="dropdown-autoclose-true">
 					Sortering
@@ -77,22 +70,12 @@ const SearchPage = () => {
 				<Dropdown.Menu >
 					{sorting.map(sort => (
 						<Dropdown.Item key={sort.id} as={Button} value={sort.value} onClick={handleClickSorting}>{sort.name}</Dropdown.Item>
-
 					))}
 				</Dropdown.Menu>
-
 			</Dropdown>
 
 
-
-
-
-
-
-
-
 			{/* Genre buttons */}
-
 			<Form>
 				<div className="mb-3">
 					{genres.map(genre => (
@@ -111,7 +94,6 @@ const SearchPage = () => {
 
 
 			{/* visa 10-20 filmer med den input som ges  */}
-
 			{
 				data && (
 					<>

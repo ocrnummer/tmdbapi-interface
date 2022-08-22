@@ -1,4 +1,5 @@
 import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import placeholder from '../assets/img/poster_placeholder.png'
 
 
@@ -6,7 +7,7 @@ const MovieCard = ({ data }) => {
 	const BASE_URL = 'https://image.tmdb.org/t/p/w200'
 
 	return (
-		<Card>
+		<Card as={Link} to={`/movie/${data.id}`}>
 			<Card.Img variant="top" src={data.poster_path ? BASE_URL + data.poster_path : placeholder} />
 			<Card.Body>
 				<Card.Title className="h2"> {data.title} </Card.Title>

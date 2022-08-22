@@ -16,11 +16,11 @@ export const discoverMovies = ({ queryKey }) => {
 	const [_key, page, genre, sort, query] = queryKey
 
 	return get(`/discover/movie${APIkey}
-		&sort_by=${sort}
+		${sort ? '&sort_by=' + sort : ''}
 		&include_adult=false
 		&include_video=false
 		&page=${page}
-		&with_genres=${genre}`)
+		${genre ? '&with_genres=' + genre : ''}`)
 }
 
 // &query=${query}

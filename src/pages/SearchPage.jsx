@@ -2,20 +2,22 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
-import { Container, Form, Row, Col } from 'react-bootstrap'
+import { Container, Form, Row, Col, Dropdown, Button } from 'react-bootstrap'
 
 // Components
 import MovieCard from '../components/MovieCard'
 import Pagination from '../components/Pagination'
 
-// Services
+// Services & Utilities
 import { discoverMovies } from '../services/TmdbAPI.js'
+import { genres } from '../utils/genres.js'
+import { sorting } from '../utils/sorting.js'
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams({
 		page: 1,
-		genre: 28,
-		sort: 'popularity.desc'
+		genre: '',
+		sort: ''
 		// query: ''
 	})
 
@@ -26,111 +28,27 @@ const SearchPage = () => {
 
 	const { data, error, isLoading, isFetching, isError } = useQuery(['discover-movies', page, genre, sort, query], discoverMovies)
 
-	const sortingOptions = {
-		popularityDesc: 'popularity.desc',
-		popularityAsc: 'popularity.asc',
-		releaseDateDesc: 'primary_release_date.desc',
-		releaseDateAsc: 'primary_release_date.asc',
-		titleDesc: 'original_title.desc',
-		titleAsc: 'original_title.asc',
+	const handleCheckbox = (e) => {
+		console.log(e.target.id)
+		setSearchParams({
+			page,
+			genre: e.target.id,
+			sort
+		})
 	}
 
-	const genreOptions = [
-		{
-			"id": 28,
-			"name": "Action"
-		},
-		{
-			"id": 12,
-			"name": "Äventyr"
-		},
-		{
-			"id": 16,
-			"name": "Animerat"
-		},
-		{
-			"id": 35,
-			"name": "Komedi"
-		},
-		{
-			"id": 80,
-			"name": "Brott"
-		},
-		{
-			"id": 99,
-			"name": "Dokumentär"
-		},
-		{
-			"id": 18,
-			"name": "Drama"
-		},
-		{
-			"id": 10751,
-			"name": "Familj"
-		},
-		{
-			"id": 14,
-			"name": "Fantasy"
-		},
-		{
-			"id": 36,
-			"name": "Historia"
-		},
-		{
-			"id": 27,
-			"name": "Skräck"
-		},
-		{
-			"id": 10402,
-			"name": "Musikal"
-		},
-		{
-			"id": 9648,
-			"name": "Mysterier"
-		},
-		{
-			"id": 10749,
-			"name": "Romantik"
-		},
-		{
-			"id": 878,
-			"name": "Science Fiction"
-		},
-		{
-			"id": 10770,
-			"name": "Film adaptioner"
-		},
-		{
-			"id": 53,
-			"name": "Spänning"
-		},
-		{
-			"id": 10752,
-			"name": "Krig"
-		},
-		{
-			"id": 37,
-			"name": "Vilda västern"
-		}
-	]
-
-	// const [searchInput, setSearchInput] = useState('')
-
-	// useEffect(() => {
-	// 	setSearchParams({
-	// 		page,
-	// 		genre,
-	// 		sort,
-	// 		query: searchInput
-	// 	})
-	// }, [searchInput])
-
-	// const handleSubmit = () => {
-
-	// }
+	const handleClickSorting = (e) => {
+		console.log(e.target.value)
+		setSearchParams({
+			page,
+			genre,
+			sort: e.target.value
+		})
+	}
 
 	return (
 		<Container className="d-flex flex-column align-items-center">
+
 			{/* form med input för text och knappar/dropdown för genre */}
 			{/* <Form onSubmit={handleSubmit}>
 				<Form.Group className="d-flex align-items-center m-3">
@@ -144,26 +62,79 @@ const SearchPage = () => {
 				</Form.Group>
 			</Form> */}
 
+
+
+
+
+			{/* --------->     SORTERING HALLÅ!!! <-------------- */}
+
+
+			<Dropdown className="d-inline mx-2">
+				<Dropdown.Toggle id="dropdown-autoclose-true">
+					Sortering
+				</Dropdown.Toggle>
+
+				<Dropdown.Menu >
+					{sorting.map(sort => (
+						<Dropdown.Item key={sort.id} as={Button} value={sort.value} onClick={handleClickSorting}>{sort.name}</Dropdown.Item>
+
+					))}
+				</Dropdown.Menu>
+
+			</Dropdown>
+
+
+
+
+
+
+
+
+
+			{/* Genre buttons */}
+
+			<Form>
+				<div className="mb-3">
+					{genres.map(genre => (
+						<Form.Check
+							key={genre.id}
+							onChange={handleCheckbox}
+							inline
+							label={genre.name}
+							name="genreGroup"
+							type="radio"
+							id={genre.id}
+						/>
+					))}
+				</div>
+			</Form>
+
+
 			{/* visa 10-20 filmer med den input som ges  */}
 
-			{data && (
-				<>
-					<Row>
-						{data.results.map(data => (
-							<Col lg={3} md={4} sm={6} key={data.id}>
-								<MovieCard data={data} />
-							</Col>
-						))}
-					</Row>
+			{
+				data && (
+					<>
+						<Row>
+							{data.results.map(data => (
+								<Col lg={3} md={4} sm={6} key={data.id}>
+									<MovieCard data={data} />
+								</Col>
+							))}
+						</Row>
 
-					<Pagination
-						page={page}
-						turnPage={setSearchParams}
-					/>
-				</>
-			)}
+						<Pagination
+							page={page}
+							genre={genre}
+							sort={sort}
+							totalPages={data.total_pages}
+							turnPage={setSearchParams}
+						/>
+					</>
+				)
+			}
 
-		</Container>
+		</Container >
 	)
 }
 

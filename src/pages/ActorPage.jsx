@@ -11,7 +11,7 @@ import placeholder from '../assets/img/poster_placeholder.png'
 const ActorPage = () => {
     const { id } = useParams()
 
-    const { data, error, isLoading, isFetching, isError } = useQuery(['get-movie', id], getActor)
+    const { data, error, isLoading, isFetching, isError } = useQuery(['get-actor', id], getActor)
 
     const BASE_URL = 'https://image.tmdb.org/t/p/w200'
 
@@ -23,29 +23,37 @@ const ActorPage = () => {
             {data && (
                 <Container className="d-flex">
                     <div>
-                        <Image src={data.poster_path ? BASE_URL + data.poster_path : placeholder} fluid></Image>
+                        <Image src={data.profile_path ? BASE_URL + data.profile_path : placeholder} fluid></Image>
                     </div>
                     <div>
-                        <h2>{data.original_title}</h2>
-                        <h3>{data.tagline}</h3>
+                        <h2>{data.name}</h2>
+                        <p>{data.birthday}</p>
+                        <p>{data.place_of_birth}</p>
+                        <p>{data.biography}</p>
 
-                        <p>{data.release_date}</p>
+                        <ul>
+                            {data.movie_credits.cast.map(movie =>
+                                <li key={movie.id}><Link to={`/movie/${data.id}`} >{movie.title}</Link></li>
+                            )}
+                        </ul>
 
-                        {data.genres.map(genre =>
+
+
+                        {/* {data.genres.map(genre =>
                             <p key={genre.id} className="d-inline px-2" >{genre.name}</p>
 
                             // <Link to={`/search&with_genres=${genre.id}`} key={genre.id} className="d-inline px-2" >{genre.name}</Link>
 
-                        )}
-                        <p>{data.overview}</p>
+                        )} */}
 
-                        <ul>
+
+                        {/* <ul>
                             {data.credits.cast.map(cast => (
                                 <li key={cast.id} className="d-flex">
                                     <p> Actor: {cast.name} as {cast.character}</p>
                                 </li>
                             ))}
-                        </ul>
+                        </ul> */}
                     </div>
                 </Container>
             )}

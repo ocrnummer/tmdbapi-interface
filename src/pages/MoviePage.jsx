@@ -42,7 +42,8 @@ const MoviePage = () => {
 						<ul>
 							{data.credits.cast.map(cast => (
 								<li key={cast.id} className="d-flex">
-									<p> Actor: {cast.name} as {cast.character}</p>
+									<p> Actor:
+										<Link to={`/person/${cast.id}`}>{cast.name}</Link> as {cast.character}</p>
 								</li>
 							))}
 						</ul>

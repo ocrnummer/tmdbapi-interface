@@ -1,6 +1,8 @@
 import { Container, Image } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
 
 // Services & utilitys
 import { getMovie } from '../services/TmdbAPI.js'
@@ -18,7 +20,9 @@ const MoviePage = () => {
 	return (
 		<Container>
 
-			{error && (<p>Error! {error}</p>)}
+			{error && (<p>Error: {error}</p>)}
+
+			{isLoading && (<ClimbingBoxLoader size={10} />)}
 
 			{data && (
 				<Container className="d-flex">
@@ -27,23 +31,36 @@ const MoviePage = () => {
 					</div>
 					<div>
 						<h2>{data.original_title}</h2>
-						<h3>{data.tagline}</h3>
+
+						<h4>{data.tagline}</h4>
 
 						<p>{data.release_date}</p>
 
 						{data.genres.map(genre =>
 							<p key={genre.id} className="d-inline px-2" >{genre.name}</p>
 
-							// <Link to={`/search&with_genres=${genre.id}`} key={genre.id} className="d-inline px-2" >{genre.name}</Link>
+							// <Link to={`/genre/${genre.id}`} key={genre.id} className="d-inline px-2" >{genre.name}</Link>
 
 						)}
 						<p>{data.overview}</p>
 
+						<h3>Cast</h3>
 						<ul>
 							{data.credits.cast.map(cast => (
 								<li key={cast.id} className="d-flex">
 									<p> Actor:
 										<Link to={`/person/${cast.id}`}>{cast.name}</Link> as {cast.character}</p>
+								</li>
+							))}
+						</ul>
+
+						<h3>Similar movies</h3>
+						<ul>
+							{data.similar.results.slice(0, 5).map(movie => (
+								<li key={movie.id} className="d-flex">
+									<Link to={`/movie/${movie.id}`}>
+										{movie.title}
+									</Link>
 								</li>
 							))}
 						</ul>

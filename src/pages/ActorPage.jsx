@@ -1,6 +1,8 @@
 import { Container, Image } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
 
 // Services & utilitys
 import { getActor } from '../services/TmdbAPI.js'
@@ -17,6 +19,8 @@ const ActorPage = () => {
 
     return (
         <Container>
+
+            {isLoading && (<ClimbingBoxLoader size={10} />)}
 
             {error && (<p>Error! {error}</p>)}
 

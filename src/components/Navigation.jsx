@@ -12,8 +12,11 @@ const Navigation = () => {
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">
 
-						<Nav.Link as={NavLink} to="/categories">Listor</Nav.Link>
-						<Nav.Link as={NavLink} to="/search">Sök film</Nav.Link>
+
+						<Nav.Link as={NavLink} to="/categories">Lists</Nav.Link>
+						<Nav.Link as={NavLink} to="/genre">Genre</Nav.Link>
+
+						<Nav.Link as={NavLink} to="/search">Search</Nav.Link>
 
 					</Nav>
 				</Navbar.Collapse>

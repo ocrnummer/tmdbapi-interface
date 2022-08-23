@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
 import { Row, Col, Button } from 'react-bootstrap'
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
 
 // Components
 import MovieCard from '../components/MovieCard'
@@ -10,7 +12,7 @@ import Pagination from '../components/Pagination'
 
 // Services
 import { getMoviesCategory } from '../services/TmdbAPI.js'
-import CategoryButton from '../components/CategoryButton'
+import { categories } from '../utils/categories.js'
 
 
 const NowPlayingPage = () => {
@@ -30,23 +32,15 @@ const NowPlayingPage = () => {
 			<h2>Nu på bio</h2>
 
 			{/* Kategoriknappar */}
-			<Button
-				onClick={() => { setSearchParams({ category: "/popular", page: 1 }) }}
-				variant="outline-primary"
-			>Trendande titlar</Button>
-			<Button
-				onClick={() => { setSearchParams({ category: "/now_playing", page: 1 }) }}
-				variant="outline-primary"
-			>Bioaktuellt</Button>
-			<Button
-				onClick={() => { setSearchParams({ category: "/top_rated", page: 1 }) }}
-				variant="outline-primary"
-			>ToppListan</Button>
+			{categories && categories.map(cat => {
+				<Button
+					key={cat.id}
+					onClick={() => { setSearchParams({ category: cat.path, page: 1 }) }}
+					variant="outline-primary"
+				>{cat.name}</Button>
+			})}
 
-			{/* <CategoryButton category="/popular" text="Trendande titlar" onSetSearchParams={setSearchParams} />
-			<CategoryButton category="/now_playing" text="Nu på bio" onSetSearchParams={setSearchParams} />
-			<CategoryButton category="/top_rated" text="Topplistan" onSetSearchParams={setSearchParams} /> */}
-
+			{isLoading && (<ClimbingBoxLoader size={10} />)}
 
 			{data && (
 				<>

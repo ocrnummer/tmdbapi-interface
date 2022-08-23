@@ -1,4 +1,5 @@
-import { Button, Container, Nav, NavLink } from "react-bootstrap"
+import { Button, Container } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 const HomePage = () => {
 
@@ -7,22 +8,28 @@ const HomePage = () => {
 		<Container className="my-auto">
 
 			<h1 className="d-flex justify-content-center py-4">The Movie Database</h1>
-			{/* 
-			<Nav className="d-flex justify-content-center py-4">
-				<Nav.Link as={NavLink} to="/categories">
-					<Button
-						variant="primary"
-						className="m-2"
-					>Listor</Button>
-				</Nav.Link>
 
-				<Nav.Link as={NavLink} to="/search">
-					<Button
-						variant="primary"
-						className="m-2"
-					>Sök film</Button>
-				</Nav.Link>
-			</Nav> */}
+			<Button
+				as={Link}
+				to="/categories"
+				variant="primary"
+				className="m-2"
+			>Lists</Button>
+
+			<Button
+				as={Link}
+				to="/genre"
+				variant="primary"
+				className="m-2"
+			>Genre</Button>
+
+			<Button
+				as={Link}
+				to="/search"
+				variant="primary"
+				className="m-2"
+			>Search</Button>
+
 		</Container>
 	)
 }

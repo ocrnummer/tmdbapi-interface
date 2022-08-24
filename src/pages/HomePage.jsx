@@ -1,35 +1,39 @@
-import { Button, Container } from "react-bootstrap"
+// React & Bootstrap
 import { Link } from "react-router-dom"
+import { Button, Container, Row, Col } from "react-bootstrap"
+
+// Style
+import '../assets/scss/App.scss'
+
 
 const HomePage = () => {
 
-
 	return (
 		<Container className="my-auto">
+			<Row className="py-5">
+				<Col>
+					<h1 className="d-flex justify-content-center py-4">The Movie Database</h1>
+				</Col>
+			</Row>
 
-			<h1 className="d-flex justify-content-center py-4">The Movie Database</h1>
-
-			<Button
-				as={Link}
-				to="/categories"
-				variant="primary"
-				className="m-2"
-			>Lists</Button>
-
-			<Button
-				as={Link}
-				to="/genre"
-				variant="primary"
-				className="m-2"
-			>Genre</Button>
-
-			<Button
-				as={Link}
-				to="/search"
-				variant="primary"
-				className="m-2"
-			>Search</Button>
-
+			<Row>
+				<Col md={6} className="d-flex justify-content-center">
+					<Button
+						as={Link}
+						to="/categories"
+						variant="outline-primary"
+						className="m-2 px-5 py-3 button"
+					>Lists</Button>
+				</Col>
+				<Col md={6} className="d-flex justify-content-center">
+					<Button
+						as={Link}
+						to="/genre"
+						variant="outline-primary"
+						className="m-2 px-5 py-3 button"
+					>Genre</Button>
+				</Col>
+			</Row>
 		</Container>
 	)
 }

@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'https://api.themoviedb.org/3'
 
 // Axios fetch
 export const get = async (endpoint) => {
-	console.log(endpoint)
+	// console.log(endpoint)
 	const response = await axios.get(endpoint)
 	return response.data
 }
@@ -15,7 +15,6 @@ export const get = async (endpoint) => {
 // Discover by genres endpoint
 export const discoverMovies = ({ queryKey }) => {
 	const [_key, page, genre, sort] = queryKey
-
 	return get(`/discover/movie${APIkey}
 		${sort ? '&sort_by=' + sort : ''}
 		&include_adult=false
@@ -26,28 +25,24 @@ export const discoverMovies = ({ queryKey }) => {
 
 export const searchMovies = ({ queryKey }) => {
 	const [_key, page, query] = queryKey
-
 	return get(`/search/movie${APIkey}&query=${query}&include_adult=false&page=${page}`)
 }
 
 // Categories (now_playing, popular, top_rated) endpoint
 export const getMoviesCategory = ({ queryKey }) => {
 	const [_key, page, category] = queryKey
-
 	return get(`/movie${category}${APIkey}&page=${page}`)
 }
 
 // Get movie by id
 export const getMovie = ({ queryKey }) => {
 	const [_key, id] = queryKey
-
 	return get(`/movie/${id}${APIkey}&append_to_response=credits,similar`)
 }
 
 // Get actor by id
 export const getActor = ({ queryKey }) => {
 	const [_key, id] = queryKey
-
 	return get(`/person/${id}${APIkey}&append_to_response=movie_credits`)
 }
 

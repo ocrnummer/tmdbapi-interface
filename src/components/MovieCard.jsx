@@ -2,21 +2,22 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import placeholder from '../assets/img/poster_placeholder.png'
 
+import '../assets/scss/App.scss'
+
 
 const MovieCard = ({ data }) => {
-	const BASE_URL = 'https://image.tmdb.org/t/p/w200'
+	const BASE_URL = 'https://image.tmdb.org/t/p/w500'
 
 	return (
-		<Card as={Link} to={`/movie/${data.id}`}>
-			<Card.Img variant="top" src={data.poster_path ? BASE_URL + data.poster_path : placeholder} />
-			<Card.Body>
-				<Card.Title className="h2"> {data.title} </Card.Title>
-				<Card.Subtitle className="mb-2 text-muted"> Rating: {data.vote_average} </Card.Subtitle>
-				{/* <Card.Text> </Card.Text> */}
+		<Card as={Link} to={`/movie/${data.id}`} className="my-3 d-flex anon-link">
+			<Card.Img variant="left" src={data.poster_path ? BASE_URL + data.poster_path : placeholder} />
 
-				<Card.Text> Release date: {data.release_date} </Card.Text>
+			<Card.Body>
+				<Card.Title className="py-1 card-title"> {data.title} </Card.Title>
+				<Card.Subtitle className="py-2 text-muted card-text">Rating: {data.vote_average} </Card.Subtitle>
+				<Card.Subtitle className="py-2 text-muted card-text">Release date: {data.release_date} </Card.Subtitle>
 			</Card.Body>
-		</Card>
+		</Card >
 	)
 }
 

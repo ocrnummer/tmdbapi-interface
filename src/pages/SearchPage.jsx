@@ -1,9 +1,9 @@
 // React & Bootstrap
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useQuery } from 'react-query'
-import { useSearchParams, Link } from 'react-router-dom'
-import { Container, Form, Row, Col, Dropdown, Button } from 'react-bootstrap'
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import { useSearchParams } from 'react-router-dom'
+import { Container, Form, Row, Col, Alert } from 'react-bootstrap'
+import BarLoader from "react-spinners/BarLoader";
 
 
 // Components
@@ -12,7 +12,6 @@ import Pagination from '../components/Pagination'
 
 // Services & Utilities
 import { searchMovies } from '../services/TmdbAPI.js'
-import { useEffect } from 'react';
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams({
@@ -23,7 +22,7 @@ const SearchPage = () => {
 	const page = searchParams.get('page')
 	const query = searchParams.get('query')
 
-	const { data, error, isLoading, isFetching, isError } = useQuery(['search-movies', page, query], searchMovies)
+	const { data, error, isLoading, isError } = useQuery(['search-movies', page, query], searchMovies)
 
 	return (
 		<Container className="d-flex flex-column align-items-center">
@@ -43,9 +42,9 @@ const SearchPage = () => {
 				/>
 			</Form>
 
-			{isError && (<p>An error occured: {error}</p>)}
+			{isError && (<Alert variant="warning">An error occured: {error.message}</Alert>)}
 
-			{isLoading && (<ClimbingBoxLoader size={10} />)}
+			{isLoading && (<BarLoader size={10} />)}
 
 			{/* visa 10-20 filmer med den input som ges  */}
 			{data && (

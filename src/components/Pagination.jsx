@@ -1,7 +1,10 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
-const Pagination = ({ page, totalPages, turnPage, genre, sort }) => {
+import '../assets/scss/App.scss'
+
+
+const Pagination = ({ page, totalPages, turnPage, genre, category, sort }) => {
     return (
         <div className="d-flex justify-content-between align-item-center m-2">
             <Button
@@ -10,11 +13,13 @@ const Pagination = ({ page, totalPages, turnPage, genre, sort }) => {
                     turnPage({
                         page: Number(page) - 1,
                         genre,
+                        category,
                         sort
                     })
                 }}
-                variant="primary"
-            >Föregående sida</Button>
+                variant="outline-primary"
+                className="button"
+            >Previous</Button>
 
             <span> {page} / {totalPages} </span>
 
@@ -23,11 +28,13 @@ const Pagination = ({ page, totalPages, turnPage, genre, sort }) => {
                     turnPage({
                         page: Number(page) + 1,
                         genre,
+                        category,
                         sort
                     })
                 }}
-                variant="primary"
-            >Nästa sida</Button>
+                variant="outline-primary"
+                className="button"
+            >Next</Button>
         </div>
     )
 }

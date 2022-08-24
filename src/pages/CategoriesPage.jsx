@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
-import { Row, Col, Button } from 'react-bootstrap'
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import { Row, Col, Button, Alert, Container } from 'react-bootstrap'
+import BarLoader from "react-spinners/BarLoader";
 
 
 // Components
@@ -14,8 +14,12 @@ import Pagination from '../components/Pagination'
 import { getMoviesCategory } from '../services/TmdbAPI.js'
 import { categories } from '../utils/categories.js'
 
+import '../assets/scss/App.scss'
+
+
 
 const NowPlayingPage = () => {
+	const [pageTitle, setPageTitle] = useState('Popular titles')
 	const [searchParams, setSearchParams] = useSearchParams({
 		category: '/popular',
 		page: 1
@@ -24,41 +28,62 @@ const NowPlayingPage = () => {
 	const category = searchParams.get('category')
 	const page = searchParams.get('page')
 
-
-	const { data, error, isLoading, isFetching, isError } = useQuery(['get-movies', page, category], getMoviesCategory)
+	const { data, error, isLoading, isError } = useQuery(['get-movies', page, category], getMoviesCategory)
 
 	return (
-		<div>
-			<h2>Nu på bio</h2>
+		<Container>
+			<Row>
+				<Col className="d-flex justify-content-center py-3">
+					<h1>{pageTitle}</h1>
+				</Col>
+			</Row>
 
-			{/* Kategoriknappar */}
-			{categories && categories.map(cat => {
-				<Button
-					key={cat.id}
-					onClick={() => { setSearchParams({ category: cat.path, page: 1 }) }}
-					variant="outline-primary"
-				>{cat.name}</Button>
-			})}
+			<Row>
+				{/* Kategoriknappar */}
+				<Col className="d-flex justify-content-center py-1">
+					{categories.map(cat => (
+						<Button
+							className="m-3 button"
+							key={cat.id}
+							onClick={() => {
+								setSearchParams({ category: cat.path, page: 1 })
+								setPageTitle(cat.name)
+							}}
+							variant="outline-primary"
+						>{cat.name}</Button>
+					))}
+				</Col>
+			</Row>
 
-			{isLoading && (<ClimbingBoxLoader size={10} />)}
+			<Row>
+				<Col className="d-flex justify-content-center py-3">
+					{isLoading && (<BarLoader size={20} />)}
+					{isError && (<Alert variant="danger">An error occured: {error.message}</Alert>)}
+				</Col>
+			</Row>
 
 			{data && (
-				<>
-					<Row>
+				<Container>
+					<Row xs={2} md={2} className="g-4">
 						{data.results.map(data => (
-							<Col lg={3} md={4} sm={6} key={data.id}>
+							<Col lg={3} md={3} sm={6} key={data.id}>
 								<MovieCard data={data} />
 							</Col>
 						))}
 					</Row>
 
-					<Pagination
-						page={page}
-						turnPage={setSearchParams}
-					/>
-				</>
+					{/* <Row>
+						<Col>
+							<Pagination
+								page={page}
+								category={category}
+								turnPage={setSearchParams}
+							/>
+						</Col>
+					</Row> */}
+				</Container>
 			)}
-		</div>
+		</Container>
 	)
 }
 

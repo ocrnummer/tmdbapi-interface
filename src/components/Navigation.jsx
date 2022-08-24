@@ -16,8 +16,6 @@ const Navigation = () => {
 						<Nav.Link as={NavLink} to="/categories">Lists</Nav.Link>
 						<Nav.Link as={NavLink} to="/genre">Genre</Nav.Link>
 
-						<Nav.Link as={NavLink} to="/search">Search</Nav.Link>
-
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

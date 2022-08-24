@@ -1,7 +1,8 @@
-import { Container, Image } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import { Container, Image, Alert } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import BarLoader from "react-spinners/BarLoader";
 
 
 // Services & utilitys
@@ -13,22 +14,23 @@ import placeholder from '../assets/img/poster_placeholder.png'
 const MoviePage = () => {
 	const { id } = useParams()
 
-	const { data, error, isLoading, isFetching, isError } = useQuery(['get-movie', id], getMovie)
+	const { data, error, isLoading, isError } = useQuery(['get-movie', id], getMovie)
 
 	const BASE_URL = 'https://image.tmdb.org/t/p/w200'
 
 	return (
 		<Container>
 
-			{error && (<p>Error: {error}</p>)}
+			{isLoading && (<BarLoader size={10} />)}
 
-			{isLoading && (<ClimbingBoxLoader size={10} />)}
+			{isError && (<Alert variant="danger">An error occured: {error.message}</Alert>)}
 
 			{data && (
 				<Container className="d-flex">
 					<div>
 						<Image src={data.poster_path ? BASE_URL + data.poster_path : placeholder} fluid></Image>
 					</div>
+
 					<div>
 						<h2>{data.original_title}</h2>
 

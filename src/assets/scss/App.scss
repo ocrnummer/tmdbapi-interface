@@ -1,3 +1,7 @@
+.list {
+   padding-left: 0;
+}
+
 .button {
     border-bottom: solid 3px;
     border-top: none;
@@ -16,4 +20,24 @@
 
 .card-text {
     font-size: 1rem;
+}
+
+.tagline {
+    font-style: italic;
+    color: darkslategrey;
+}
+
+.actor-thumbnail {
+    height: auto;
+    width: 1rem;
+}
+
+.image-poster {
+    width: 50%;
+    height: auto;
+}
+
+.card-size {
+    width: 10rem;
+    height: auto;
 }

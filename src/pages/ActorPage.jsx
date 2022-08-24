@@ -1,4 +1,4 @@
-import { Container, Image, Alert } from 'react-bootstrap'
+import { Container, Image, Alert, Row, Col, Card } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
 import BarLoader from "react-spinners/BarLoader";
@@ -8,57 +8,66 @@ import BarLoader from "react-spinners/BarLoader";
 import { getActor } from '../services/TmdbAPI.js'
 
 // Assets
-import placeholder from '../assets/img/poster_placeholder.png'
+import moviePlaceholder from '../assets/img/poster_placeholder.png'
+import actorPlaceholder from '../assets/img/actor_placeholder.jpeg'
+
+// Style
+import '../assets/scss/App.scss'
 
 const ActorPage = () => {
 	const { id } = useParams()
-
 	const { data, error, isLoading, isError } = useQuery(['get-actor', id], getActor)
-
-	const BASE_URL = 'https://image.tmdb.org/t/p/w200'
+	const BASE_URL = 'https://image.tmdb.org/t/p/w500'
 
 	return (
 		<Container>
-
-			{isLoading && (<BarLoader size={10} />)}
-
-			{isError && (<Alert variant="danger">An error occured: {error.message}</Alert>)}
+			<Row>
+				<Col className="d-flex justify-content-center py-3">
+					{isLoading && (<BarLoader size={10} />)}
+					{isError && (<Alert variant="danger">An error occured: {error.message}</Alert>)}
+				</Col>
+			</Row>
 
 			{data && (
-				<Container className="d-flex">
-					<div>
-						<Image src={data.profile_path ? BASE_URL + data.profile_path : placeholder} fluid></Image>
-					</div>
-					<div>
-						<h2>{data.name}</h2>
-						<p>{data.birthday}</p>
-						<p>{data.place_of_birth}</p>
-						<p>{data.biography}</p>
 
-						<ul>
-							{data.movie_credits.cast.map(movie =>
-								<li key={movie.id}><Link to={`/movie/${movie.id}`} >{movie.title}</Link></li>
-							)}
-						</ul>
+				<Container>
+					<Row className="mb-4 d-flex justify-content-evenly">
+						<Col sm={12} lg={6} xl={6} className="d-flex justify-content-end">
+							<Image
+								src={data.profile_path ? BASE_URL + data.profile_path : actorPlaceholder}
+								className="image-poster"
+							/>
+						</Col>
 
+						<Col sm={0} lg={6} xl={6} className="d-flex flex-column">
+							<h2>{data.name}</h2>
+							<p>{data.birthday}</p>
+							<p>{data.place_of_birth}</p>
+							<p>{data.biography}</p>
+						</Col>
+					</Row>
 
+					<Row xs={4} className="g-4 d-flex flex-column align-items-center">
+						<Col className="d-flex fl">
+							<h3>Featured in</h3>
+						</Col>
 
-						{/* {data.genres.map(genre =>
-							<p key={genre.id} className="d-inline px-2" >{genre.name}</p>
-
-							// <Link to={`/search&with_genres=${genre.id}`} key={genre.id} className="d-inline px-2" >{genre.name}</Link>
-
-						)} */}
-
-
-						{/* <ul>
-							{data.credits.cast.map(cast => (
-								<li key={cast.id} className="d-flex">
-									<p> Actor: {cast.name} as {cast.character}</p>
-								</li>
+						<Col lg={8} md={4} sm={8} className="d-flex flex-wrap flex-row justify-content-start">
+							{data.movie_credits.cast.map(movie => (
+								<Link to={`/movie/${movie.id}`} className="anon-link">
+									<Card key={movie.id} className="card-size m-3">
+										<Card.Img
+											variant="top"
+											src={movie.poster_path ? BASE_URL + movie.poster_path : moviePlaceholder}
+										/>
+										<Card.Body>
+											<Card.Title>{movie.title}</Card.Title>
+										</Card.Body>
+									</Card>
+								</Link>
 							))}
-						</ul> */}
-					</div>
+						</Col>
+					</Row>
 				</Container>
 			)}
 		</Container>

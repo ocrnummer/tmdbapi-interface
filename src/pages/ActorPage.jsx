@@ -1,8 +1,10 @@
 import { Container, Image, Alert, Row, Col, Card } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
-import BarLoader from "react-spinners/BarLoader";
+import BarLoader from "react-spinners/BarLoader"
 
+// Components
+import BackButton from "../components/BackButton";
 
 // Services & utilitys
 import { getActor } from '../services/TmdbAPI.js'
@@ -10,8 +12,6 @@ import { getActor } from '../services/TmdbAPI.js'
 // Assets
 import moviePlaceholder from '../assets/img/poster_placeholder.png'
 import actorPlaceholder from '../assets/img/actor_placeholder.jpeg'
-
-// Style
 import '../assets/scss/App.scss'
 
 const ActorPage = () => {
@@ -21,6 +21,9 @@ const ActorPage = () => {
 
 	return (
 		<Container>
+
+			<BackButton />
+
 			<Row>
 				<Col className="d-flex justify-content-center py-3">
 					{isLoading && (<BarLoader size={10} />)}
@@ -31,6 +34,8 @@ const ActorPage = () => {
 			{data && (
 
 				<Container>
+
+					{/* Info */}
 					<Row className="mb-4 d-flex justify-content-evenly">
 						<Col sm={12} lg={6} xl={6} className="d-flex justify-content-end">
 							<Image
@@ -47,14 +52,14 @@ const ActorPage = () => {
 						</Col>
 					</Row>
 
+					{/* Medverkarnden */}
 					<Row xs={4} className="g-4 d-flex flex-column align-items-center">
 						<Col className="d-flex fl">
 							<h3>Featured in</h3>
 						</Col>
-
 						<Col lg={8} md={4} sm={8} className="d-flex flex-wrap flex-row justify-content-start">
 							{data.movie_credits.cast.map(movie => (
-								<Link to={`/movie/${movie.id}`} className="anon-link">
+								<Link key={movie.id} to={`/movie/${movie.id}`} className="anon-link">
 									<Card key={movie.id} className="card-size m-3">
 										<Card.Img
 											variant="top"

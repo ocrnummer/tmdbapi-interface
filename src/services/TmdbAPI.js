@@ -23,11 +23,6 @@ export const discoverMovies = ({ queryKey }) => {
 		${genre ? '&with_genres=' + genre : ''}`)
 }
 
-export const searchMovies = ({ queryKey }) => {
-	const [_key, page, query] = queryKey
-	return get(`/search/movie${APIkey}&query=${query}&include_adult=false&page=${page}`)
-}
-
 // Categories (now_playing, popular, top_rated) endpoint
 export const getMoviesCategory = ({ queryKey }) => {
 	const [_key, page, category] = queryKey
@@ -51,7 +46,6 @@ export default {
 	get,
 	getMoviesCategory,
 	discoverMovies,
-	searchMovies,
 	getMovie,
 	getActor
 }

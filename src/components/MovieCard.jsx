@@ -1,8 +1,10 @@
+// React & Bootstrap
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import placeholder from '../assets/img/poster_placeholder.png'
 
+// Assets
 import '../assets/scss/App.scss'
+import placeholder from '../assets/img/poster_placeholder.png'
 
 
 const MovieCard = ({ data }) => {

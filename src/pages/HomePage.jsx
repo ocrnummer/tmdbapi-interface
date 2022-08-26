@@ -2,9 +2,8 @@
 import { Link } from "react-router-dom"
 import { Button, Container, Row, Col } from "react-bootstrap"
 
-// Style
+// Assets
 import '../assets/scss/App.scss'
-
 
 const HomePage = () => {
 
@@ -16,6 +15,7 @@ const HomePage = () => {
 				</Col>
 			</Row>
 
+			{/* Knappar */}
 			<Row>
 				<Col md={6} className="d-flex justify-content-center">
 					<Button

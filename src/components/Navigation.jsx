@@ -1,8 +1,7 @@
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
 
 const Navigation = () => {
-
 	return (
 		<Navbar bg="primary" variant="dark" expand="md">
 			<Container>
@@ -11,11 +10,8 @@ const Navigation = () => {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">
-
-
 						<Nav.Link as={NavLink} to="/categories">Lists</Nav.Link>
 						<Nav.Link as={NavLink} to="/genre">Genre</Nav.Link>
-
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

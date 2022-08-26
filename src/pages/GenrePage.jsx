@@ -14,7 +14,7 @@ import { discoverMovies } from '../services/TmdbAPI.js'
 import { genres } from '../utils/genres.js'
 import { sorting } from '../utils/sorting.js'
 
-// Style
+// Assets
 import '../assets/scss/App.scss'
 
 

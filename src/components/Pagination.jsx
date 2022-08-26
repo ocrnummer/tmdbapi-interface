@@ -1,8 +1,9 @@
+// React & bootstrap
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
+// Assets
 import '../assets/scss/App.scss'
-
 
 const Pagination = ({ page, totalPages, turnPage, genre, category, sort }) => {
     return (

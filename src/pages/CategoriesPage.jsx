@@ -1,24 +1,22 @@
 // React & Bootstrap
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
 import { Row, Col, Button, Alert, Container } from 'react-bootstrap'
 import BarLoader from "react-spinners/BarLoader";
 
-
 // Components
 import MovieCard from '../components/MovieCard'
-import Pagination from '../components/Pagination'
 
-// Services
+// Services & utilities
 import { getMoviesCategory } from '../services/TmdbAPI.js'
 import { categories } from '../utils/categories.js'
 
+// Assets
 import '../assets/scss/App.scss'
 
 
-
-const NowPlayingPage = () => {
+const CategoriesPage = () => {
 	const [pageTitle, setPageTitle] = useState('Popular titles')
 	const [searchParams, setSearchParams] = useSearchParams({
 		category: '/popular',
@@ -87,4 +85,4 @@ const NowPlayingPage = () => {
 	)
 }
 
-export default NowPlayingPage
+export default CategoriesPage

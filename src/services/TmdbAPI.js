@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const APIkey = `?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
 
+const adultAndVideo = '&include_adult=false&include_video=false'
+
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3'
 
@@ -17,8 +19,7 @@ export const discoverMovies = ({ queryKey }) => {
 	const [_key, page, genre, sort] = queryKey
 	return get(`/discover/movie${APIkey}
 		${sort ? '&sort_by=' + sort : ''}
-		&include_adult=false
-		&include_video=false
+		${adultAndVideo}
 		&page=${page}
 		${genre ? '&with_genres=' + genre : ''}`)
 }
@@ -32,13 +33,13 @@ export const getMoviesCategory = ({ queryKey }) => {
 // Get movie by id
 export const getMovie = ({ queryKey }) => {
 	const [_key, id] = queryKey
-	return get(`/movie/${id}${APIkey}&append_to_response=credits,similar`)
+	return get(`/movie/${id}${APIkey}${adultAndVideo}&append_to_response=credits,similar`)
 }
 
 // Get actor by id
 export const getActor = ({ queryKey }) => {
 	const [_key, id] = queryKey
-	return get(`/person/${id}${APIkey}&append_to_response=movie_credits`)
+	return get(`/person/${id}${APIkey}${adultAndVideo}&append_to_response=movie_credits`)
 }
 
 

@@ -1,3 +1,4 @@
+// React & Bootstrap
 import { Container, Image, Alert, Row, Col, Card } from 'react-bootstrap'
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
@@ -32,9 +33,7 @@ const ActorPage = () => {
 			</Row>
 
 			{data && (
-
 				<Container>
-
 					{/* Info */}
 					<Row className="mb-4 d-flex justify-content-evenly">
 						<Col sm={12} lg={6} xl={6} className="d-flex justify-content-end">

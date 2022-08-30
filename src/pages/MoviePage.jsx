@@ -1,10 +1,11 @@
-import { Container, Image, Alert, Row, Col, Card } from 'react-bootstrap'
+// React & Bootstrap
 import { useQuery } from 'react-query'
 import { Link, useParams } from 'react-router-dom'
-import BarLoader from "react-spinners/BarLoader";
+import BarLoader from "react-spinners/BarLoader"
+import { Container, Image, Alert, Row, Col, Card } from 'react-bootstrap'
 
 // Components
-import BackButton from "../components/BackButton";
+import BackButton from "../components/BackButton"
 
 // Services & utilitys
 import { getMovie } from '../services/TmdbAPI.js'
@@ -108,8 +109,7 @@ const MoviePage = () => {
 						</Col>
 					</Row>
 				</Container>
-			)
-			}
+			)}
 		</Container >
 	)
 }

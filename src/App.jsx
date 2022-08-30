@@ -16,7 +16,6 @@ import './assets/scss/App.scss'
 function App() {
 	return (
 		<div className="App">
-
 			<Navigation />
 
 			<Routes>
@@ -28,7 +27,6 @@ function App() {
 			</Routes>
 
 			<ReactQueryDevtools />
-
 		</div>
 	)
 }

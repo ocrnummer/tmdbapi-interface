@@ -15,7 +15,6 @@ import { categories } from '../utils/categories.js'
 // Assets
 import '../assets/scss/App.scss'
 
-
 const CategoriesPage = () => {
 	const [pageTitle, setPageTitle] = useState('Popular titles')
 	const [searchParams, setSearchParams] = useSearchParams({
@@ -69,16 +68,6 @@ const CategoriesPage = () => {
 							</Col>
 						))}
 					</Row>
-
-					{/* <Row>
-						<Col>
-							<Pagination
-								page={page}
-								category={category}
-								turnPage={setSearchParams}
-							/>
-						</Col>
-					</Row> */}
 				</Container>
 			)}
 		</Container>

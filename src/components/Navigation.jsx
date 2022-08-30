@@ -1,3 +1,4 @@
+// React & Bootstrap
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link, NavLink } from 'react-router-dom'
 
@@ -6,7 +7,6 @@ const Navigation = () => {
 		<Navbar bg="primary" variant="dark" expand="md">
 			<Container>
 				<Navbar.Brand as={Link} to="/">TMDB</Navbar.Brand>
-
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ms-auto">

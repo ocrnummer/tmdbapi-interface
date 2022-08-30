@@ -1,15 +1,12 @@
 import axios from 'axios'
 
 const APIkey = `?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-
 const adultAndVideo = '&include_adult=false&include_video=false'
-
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3'
 
 // Axios fetch
 export const get = async (endpoint) => {
-	// console.log(endpoint)
 	const response = await axios.get(endpoint)
 	return response.data
 }
@@ -41,7 +38,6 @@ export const getActor = ({ queryKey }) => {
 	const [_key, id] = queryKey
 	return get(`/person/${id}${APIkey}${adultAndVideo}&append_to_response=movie_credits`)
 }
-
 
 export default {
 	get,

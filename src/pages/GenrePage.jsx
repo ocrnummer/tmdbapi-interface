@@ -17,7 +17,6 @@ import { sorting } from '../utils/sorting.js'
 // Assets
 import '../assets/scss/App.scss'
 
-
 const SearchPage = () => {
 	const [pagetitle, setPagetitle] = useState('Action')
 	const [searchParams, setSearchParams] = useSearchParams({
@@ -139,7 +138,6 @@ const SearchPage = () => {
 					</Container>
 				)
 			}
-
 		</Container >
 	)
 }

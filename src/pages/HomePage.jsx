@@ -6,7 +6,6 @@ import { Button, Container, Row, Col } from "react-bootstrap"
 import '../assets/scss/App.scss'
 
 const HomePage = () => {
-
 	return (
 		<Container className="my-auto">
 			<Row className="py-5">

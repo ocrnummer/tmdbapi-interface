@@ -1,5 +1,5 @@
 // React & Bootstrap
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router-dom'
 import { Container, Row, Col, Dropdown, Button, Alert } from 'react-bootstrap'
@@ -9,15 +9,18 @@ import BarLoader from "react-spinners/BarLoader";
 import MovieCard from '../components/MovieCard'
 import Pagination from '../components/Pagination'
 
-// Services & Utilities
-import { discoverMovies } from '../services/TmdbAPI.js'
-import { genres } from '../utils/genres.js'
+// Services, hooks & utilities
+import { discoverMovies, getGenres } from '../services/TmdbAPI.js'
+// import { genres } from '../utils/genres.js' // gör till hook
+// import useGetGenres from '../hooks/useGetgenres.js'
 import { sorting } from '../utils/sorting.js'
 
 // Assets
 import '../assets/scss/App.scss'
 
 const SearchPage = () => {
+	const [genres, setGenres] = useState([])
+
 	const [pagetitle, setPagetitle] = useState('Action')
 	const [searchParams, setSearchParams] = useSearchParams({
 		page: 1,
@@ -31,9 +34,22 @@ const SearchPage = () => {
 
 	const { data, error, isLoading, isFetching, isError } = useQuery(['discover-movies', page, genre, sort], discoverMovies)
 
+	useEffect(() => {
+		const genres = async () => {
+			const genreList = await getGenres()
+			return genreList.genres
+		}
+
+		const result = genres()
+		console.log(result)
+		setGenres(result)
+
+	}, [])
+
 	const handleGenre = (e) => {
 		// hitta genrenamn
 		const genreName = genres.find(g => g.id == e.target.value)
+
 		// sätt page title 
 		setPagetitle(genreName.name)
 
@@ -44,6 +60,7 @@ const SearchPage = () => {
 			sort,
 		})
 	}
+
 
 	const handleClickSorting = (e) => {
 		// sök med vald sortering
@@ -64,7 +81,6 @@ const SearchPage = () => {
 					</h1>
 				</Col>
 			</Row>
-
 
 			<Row>
 				{/* Sortering dropdown */}
@@ -97,9 +113,16 @@ const SearchPage = () => {
 							className="button"
 						>Genre</Dropdown.Toggle>
 						<Dropdown.Menu >
-							{genres.map(genre => (
-								<Dropdown.Item key={genre.id} as={Button} value={genre.id} onClick={handleGenre}>{genre.name}</Dropdown.Item>
+							{genres && console.log(genres)}
+
+							{genres && genres.data.map(genre => (
+								<Dropdown.Item
+									key={genre.id}
+									as={Button} value={genre.id}
+									onClick={handleGenre}
+								>{genre.name}</Dropdown.Item>
 							))}
+
 						</Dropdown.Menu>
 					</Dropdown>
 				</Col>
@@ -115,7 +138,7 @@ const SearchPage = () => {
 			{/* visa filmer med den input som ges  */}
 			{
 				data && (
-					<Container>
+					<div>
 						<Row xs={2} md={2} className="g-4">
 							{data.results.map(data => (
 								<Col lg={3} md={4} sm={6} key={data.id}>
@@ -135,7 +158,7 @@ const SearchPage = () => {
 								/>
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				)
 			}
 		</Container >

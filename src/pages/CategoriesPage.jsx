@@ -60,7 +60,7 @@ const CategoriesPage = () => {
 			</Row>
 
 			{data && (
-				<Container>
+				<>
 					<Row xs={2} md={2} className="g-4">
 						{data.results.map(data => (
 							<Col lg={3} md={3} sm={6} key={data.id}>
@@ -68,7 +68,7 @@ const CategoriesPage = () => {
 							</Col>
 						))}
 					</Row>
-				</Container>
+				</>
 			)}
 		</Container>
 	)

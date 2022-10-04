@@ -33,11 +33,12 @@ const ActorPage = () => {
 			</Row>
 
 			{data && (
-				<Container>
+				<>
 					{/* Info */}
 					<Row className="mb-4 d-flex justify-content-evenly">
 						<Col sm={12} lg={6} xl={6} className="d-flex justify-content-end">
 							<Image
+								fluid
 								src={data.profile_path ? BASE_URL + data.profile_path : actorPlaceholder}
 								className="image-poster"
 							/>
@@ -61,6 +62,7 @@ const ActorPage = () => {
 								<Link key={movie.id} to={`/movie/${movie.id}`} className="anon-link">
 									<Card key={movie.id} className="card-size m-3">
 										<Card.Img
+											fluid
 											variant="top"
 											src={movie.poster_path ? BASE_URL + movie.poster_path : moviePlaceholder}
 										/>
@@ -72,7 +74,7 @@ const ActorPage = () => {
 							))}
 						</Col>
 					</Row>
-				</Container>
+				</>
 			)}
 		</Container>
 	)

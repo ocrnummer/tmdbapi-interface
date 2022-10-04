@@ -11,7 +11,7 @@ const MovieCard = ({ data }) => {
 
 	return (
 		<Card as={Link} to={`/movie/${data.id}`} className="my-3 d-flex anon-link">
-			<Card.Img variant="left" src={data.poster_path ? BASE_URL + data.poster_path : placeholder} />
+			<Card.Img fluid variant="left" src={data.poster_path ? BASE_URL + data.poster_path : placeholder} />
 
 			<Card.Body>
 				<Card.Title className="py-1 card-title"> {data.title} </Card.Title>

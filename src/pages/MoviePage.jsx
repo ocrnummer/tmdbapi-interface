@@ -35,12 +35,13 @@ const MoviePage = () => {
 			</Row>
 
 			{data && (
-				<Container>
+				<>
 
 					{/* Info */}
 					<Row className="mb-4 d-flex justify-content-center">
 						<Col xs={6} sm={6} lg={6} className="d-flex justify-content-end">
 							<Image
+								fluid
 								className="image-poster"
 								src={data.poster_path ? BASE_URL + data.poster_path : moviePlaceholder}
 							/>
@@ -97,6 +98,7 @@ const MoviePage = () => {
 								<Link key={movie.id} to={`/movie/${movie.id}`} className="anon-link">
 									<Card key={movie.id} className="card-size">
 										<Card.Img
+											fluid
 											variant="top"
 											src={movie.poster_path ? BASE_URL + movie.poster_path : moviePlaceholder}
 										/>
@@ -108,7 +110,7 @@ const MoviePage = () => {
 							))}
 						</Col>
 					</Row>
-				</Container>
+				</>
 			)}
 		</Container >
 	)

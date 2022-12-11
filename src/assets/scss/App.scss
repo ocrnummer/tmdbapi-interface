@@ -27,15 +27,16 @@
     color: darkslategrey;
 }
 
-// .actor-thumbnail {
-//     height: auto;
-//     // width: 1rem;
-// }
+.actor-thumbnail {
+    height: auto;
+    // width: 1rem;
+}
 
-// .image-poster {
-//     // width: 50%;
-//     height: auto;
-// }
+.image-poster {
+    // width: 50%;
+    object-fit: contain;
+    height: auto;
+}
 
 .card-size {
     // width: 10rem;

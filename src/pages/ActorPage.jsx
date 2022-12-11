@@ -53,16 +53,19 @@ const ActorPage = () => {
 					</Row>
 
 					{/* Medverkarnden */}
-					<Row xs={4} className="g-4 d-flex flex-column align-items-center">
-						<Col className="d-flex fl">
+					<Row xs={1} className="g-4 d-flex flex-column align-items-center justify-content-center">
+						<Col className="d-flex fl justify-content-center">
 							<h3>Featured in</h3>
 						</Col>
-						<Col lg={8} md={4} sm={8} className="d-flex flex-wrap flex-row justify-content-start">
+						<Col
+							// lg={8} md={8} sm={8} 
+							className="d-flex flex-wrap flex-row justify-content-center">
 							{data.movie_credits.cast.map(movie => (
-								<Link key={movie.id} to={`/movie/${movie.id}`} className="anon-link">
+								<Link md={4} lg={6} key={movie.id} to={`/movie/${movie.id}`} className="anon-link">
 									<Card key={movie.id} className="card-size m-3">
 										<Card.Img
 											fluid
+											className="image-poster"
 											variant="top"
 											src={movie.poster_path ? BASE_URL + movie.poster_path : moviePlaceholder}
 										/>

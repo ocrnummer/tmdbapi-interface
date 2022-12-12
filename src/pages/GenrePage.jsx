@@ -1,7 +1,7 @@
 // React & Bootstrap
 import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useParams } from 'react-router-dom'
 import { Container, Row, Col, Dropdown, Button, Alert } from 'react-bootstrap'
 import BarLoader from "react-spinners/BarLoader";
 
@@ -10,18 +10,15 @@ import MovieCard from '../components/MovieCard'
 import Pagination from '../components/Pagination'
 
 // Services, hooks & utilities
-import { discoverMovies, getGenres } from '../services/TmdbAPI.js'
-// import { genres } from '../utils/genres.js' // gör till hook
-// import useGetGenres from '../hooks/useGetgenres.js'
+import { discoverMovies } from '../services/TmdbAPI.js'
+import { genres } from '../utils/genres.js' // gör till hook
 import { sorting } from '../utils/sorting.js'
 
 // Assets
 import '../assets/scss/App.scss'
 
-const SearchPage = () => {
-	const [genres, setGenres] = useState([])
-
-	const [pagetitle, setPagetitle] = useState('Action')
+const GenrePage = () => {
+	const [pagetitle, setPagetitle] = useState('')
 	const [searchParams, setSearchParams] = useSearchParams({
 		page: 1,
 		genre: 28,
@@ -35,24 +32,15 @@ const SearchPage = () => {
 	const { data, error, isLoading, isFetching, isError } = useQuery(['discover-movies', page, genre, sort], discoverMovies)
 
 	useEffect(() => {
-		const genres = async () => {
-			const genreList = await getGenres()
-			return genreList.genres
-		}
-
-		const result = genres()
-		console.log(result)
-		setGenres(result)
-
+		const genreName = genres.find(g => g.id == genre)
+		setPagetitle(genreName.name)
 	}, [])
 
 	const handleGenre = (e) => {
 		// hitta genrenamn
 		const genreName = genres.find(g => g.id == e.target.value)
-
 		// sätt page title 
 		setPagetitle(genreName.name)
-
 		// sök med vald genre
 		setSearchParams({
 			page: 1,
@@ -60,7 +48,6 @@ const SearchPage = () => {
 			sort,
 		})
 	}
-
 
 	const handleClickSorting = (e) => {
 		// sök med vald sortering
@@ -113,16 +100,14 @@ const SearchPage = () => {
 							className="button"
 						>Genre</Dropdown.Toggle>
 						<Dropdown.Menu >
-							{genres && console.log(genres)}
-
-							{genres && genres.data.map(genre => (
+							{genres && genres.map(genre => (
 								<Dropdown.Item
 									key={genre.id}
-									as={Button} value={genre.id}
+									as={Button}
+									value={genre.id}
 									onClick={handleGenre}
 								>{genre.name}</Dropdown.Item>
 							))}
-
 						</Dropdown.Menu>
 					</Dropdown>
 				</Col>
@@ -165,4 +150,4 @@ const SearchPage = () => {
 	)
 }
 
-export default SearchPage
+export default GenrePage

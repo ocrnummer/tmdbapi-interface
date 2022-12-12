@@ -39,15 +39,10 @@ export const getActor = ({ queryKey }) => {
 	return get(`/person/${id}${APIkey}${adultAndVideo}&append_to_response=movie_credits`)
 }
 
-export const getGenres = () => {
-	return get(`genre/movie/list${APIkey}`)
-}
-
 export default {
 	get,
 	getMoviesCategory,
 	discoverMovies,
 	getMovie,
-	getActor,
-	getGenres
+	getActor
 }
